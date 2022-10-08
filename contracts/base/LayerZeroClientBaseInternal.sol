@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.0;
 
+import { ILayerZeroEndpoint } from '../interfaces/ILayerZeroEndpoint.sol';
 import { ILayerZeroClientBaseInternal } from './ILayerZeroClientBaseInternal.sol';
 import { LayerZeroClientBaseStorage } from './LayerZeroClientBaseStorage.sol';
 
@@ -34,6 +35,9 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         remoteAddress = LayerZeroClientBaseStorage.layout().trustedRemotes[
             remoteChainId
         ];
+
+        if (remoteAddress.length == 0)
+            revert LayerZeroClientBase__InvalidTrustedRemote();
     }
 
     function _isTrustedRemote(uint16 remoteChainId, bytes calldata path)
@@ -79,6 +83,26 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         ] = remoteAddress;
 
         emit SetTrustedRemoteAddress(remoteChainId, remoteAddress);
+    }
+
+    function _lzSend(
+        uint16 destinationChainId,
+        bytes memory payload,
+        address payable refundAddress,
+        address zroPaymentAddress,
+        bytes memory adapterParams,
+        uint256 nativeFee
+    ) internal virtual {
+        bytes memory trustedRemote = _getTrustedRemote(destinationChainId);
+
+        ILayerZeroEndpoint(_getLayerZeroEndpoint()).send{ value: nativeFee }(
+            destinationChainId,
+            trustedRemote,
+            payload,
+            refundAddress,
+            zroPaymentAddress,
+            adapterParams
+        );
     }
 
     function _pathToAddress(bytes calldata path)
