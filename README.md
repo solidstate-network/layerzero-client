@@ -1,6 +1,6 @@
-# SolidState Smart Contract Project
+# SolidState LayerZero Client
 
-> Note: This repository was generated from a template or is the template itself. To set up a new project, set the missing data marked "TODO" in `package.json` and remove this notice.
+SolidState integration with the LayerZero cross-chain messaging protocol.
 
 This project is built with [SolidState](https://github.com/solidstate-network). See the [solidstate-solidity](https://github.com/solidstate-network/solidstate-solidity) documentation for information about contract integration and testing.
 

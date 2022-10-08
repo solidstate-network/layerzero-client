@@ -1,10 +1,9 @@
 {
-  "name": "TODO",
+  "name": "@solidstate/layerzero-client",
   "version": "0.0.0",
-  "private": true,
-  "author": "TODO",
-  "license": "TODO",
-  "description": "TODO",
+  "author": "Nick Barry",
+  "license": "MIT",
+  "description": "SolidState integration with the LayerZero cross-chain messaging protocol",
   "keywords": [
     "hardhat",
     "waffle",
@@ -14,7 +13,9 @@
     "ether",
     "eth",
     "buidler",
-    "wow"
+    "wow",
+    "layerzero",
+    "cross-chain"
   ],
   "scripts": {
     "prepare": "husky install",
