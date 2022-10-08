@@ -17,6 +17,7 @@
     "layerzero",
     "cross-chain"
   ],
+  "repository": "github:solidstate-network/layerzero-client",
   "scripts": {
     "prepare": "husky install",
     "prettier": "prettier --write --ignore-path .gitignore ."
