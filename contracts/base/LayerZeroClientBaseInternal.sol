@@ -23,7 +23,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         virtual
         returns (bytes memory path)
     {
-        path = _addressToPath(_getTrustedRemoteAddress(remoteChainId));
+        path = _formatTrustedRemote(_getTrustedRemoteAddress(remoteChainId));
     }
 
     function _getTrustedRemoteAddress(uint16 remoteChainId)
@@ -46,7 +46,8 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         virtual
         returns (bool)
     {
-        return _isTrustedRemoteAddress(remoteChainId, _pathToAddress(path));
+        return
+            _isTrustedRemoteAddress(remoteChainId, _parseTrustedRemote(path));
     }
 
     function _isTrustedRemoteAddress(
@@ -68,7 +69,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         internal
         virtual
     {
-        _setTrustedRemoteAddress(remoteChainId, _pathToAddress(path));
+        _setTrustedRemoteAddress(remoteChainId, _parseTrustedRemote(path));
 
         // TODO: SetTrustedRemoteAddress is also emitted via internal call
         emit SetTrustedRemote(remoteChainId, path);
@@ -105,24 +106,30 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         );
     }
 
-    function _pathToAddress(bytes calldata path)
+    function _formatTrustedRemote(bytes memory remoteAddress)
         private
-        pure
+        view
+        returns (bytes memory path)
+    {
+        if (remoteAddress.length == 0)
+            revert LayerZeroClientBase__InvalidTrustedRemote();
+
+        path = bytes.concat(remoteAddress, bytes20(address(this)));
+    }
+
+    function _parseTrustedRemote(bytes calldata path)
+        private
+        view
         returns (bytes memory remoteAddress)
     {
         uint256 length = path.length;
         if (length < 20) revert LayerZeroClientBase__InvalidTrustedRemote();
 
         unchecked {
-            remoteAddress = path[0:length - 20];
-        }
-    }
+            if (address(bytes20(path[length - 20:])) != address(this))
+                revert LayerZeroClientBase__InvalidTrustedRemote();
 
-    function _addressToPath(bytes memory remoteAddress)
-        private
-        view
-        returns (bytes memory path)
-    {
-        path = bytes.concat(remoteAddress, bytes20(address(this)));
+            remoteAddress = path[:length - 20];
+        }
     }
 }
