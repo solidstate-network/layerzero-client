@@ -33,7 +33,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     /**
      * @notice query the trusted remote for given chain id
      * @param remoteChainId LayerZero remote chain id
-     * @return path formatted LayerZero trusted remote path
+     * @return path encoded LayerZero trusted remote path
      */
     function _getTrustedRemote(uint16 remoteChainId)
         internal
@@ -47,7 +47,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     /**
      * @notice query the trusted remote address for given chain id
      * @param remoteChainId LayerZero remote chain id
-     * @return remoteAddress trusted remote address formatted as bytes
+     * @return remoteAddress trusted remote address encoded as bytes
      */
     function _getTrustedRemoteAddress(uint16 remoteChainId)
         internal
@@ -66,7 +66,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     /**
      * @notice query whether LayerZero remote path is trusted for given chain id
      * @param remoteChainId LayerZero remote chain id
-     * @param path formatted LayerZero remote path
+     * @param path encoded LayerZero remote path
      * @return whether LayerZero remote path is trusted
      */
     function _isTrustedRemote(uint16 remoteChainId, bytes calldata path)
@@ -82,7 +82,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     /**
      * @notice query whether address is trusted remote for given chain id
      * @param remoteChainId LayerZero remote chain id
-     * @param remoteAddress trusted remote address formatted as bytes
+     * @param remoteAddress trusted remote address encoded as bytes
      * @return whether remote address is trusted
      */
     function _isTrustedRemoteAddress(
@@ -107,7 +107,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     /**
      * @notice set LayerZero trusted remote for given chain id
      * @param remoteChainId LayerZero remote chain id
-     * @param path formatted LayerZero trusted remote path
+     * @param path encoded LayerZero trusted remote path
      */
     function _setTrustedRemote(uint16 remoteChainId, bytes calldata path)
         internal
@@ -122,7 +122,7 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     /**
      * @notice set LayerZero trusted remote address for given chain id
      * @param remoteChainId LayerZero remote chain id
-     * @param remoteAddress trusted remote address formatted as bytes
+     * @param remoteAddress trusted remote address encoded as bytes
      */
     function _setTrustedRemoteAddress(
         uint16 remoteChainId,
@@ -166,8 +166,8 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
 
     /**
      * @notice format LayerZero trusted remote by appending local address to remote address
-     * @param remoteAddress trusted remote address formatted as bytes
-     * @return path formatted LayerZero remote path
+     * @param remoteAddress trusted remote address encoded as bytes
+     * @return path encoded LayerZero remote path
      */
     function _formatTrustedRemote(bytes memory remoteAddress)
         private
@@ -181,9 +181,9 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     }
 
     /**
-     * @notice parse remtoe address from formatted LayerZero trusted remote path
-     * @param path formatted LayerZero remote path
-     * @return remoteAddress trusted remote address formatted as bytes
+     * @notice parse remote address from encoded LayerZero trusted remote path
+     * @param path encoded LayerZero remote path
+     * @return remoteAddress trusted remote address encoded as bytes
      */
     function _parseTrustedRemote(bytes calldata path)
         private
