@@ -4,6 +4,14 @@ SolidState integration with the LayerZero cross-chain messaging protocol.
 
 This project is built with [SolidState](https://github.com/solidstate-network). See the [solidstate-solidity](https://github.com/solidstate-network/solidstate-solidity) documentation for information about contract integration and testing.
 
+## Installation
+
+```bash
+npm install --save-dev @solidstate/layerzero-client
+# or
+yarn add --dev @solidstate/layerzero-client
+```
+
 ## Development
 
 Install dependencies via Yarn:
