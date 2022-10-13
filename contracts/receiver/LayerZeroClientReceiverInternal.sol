@@ -47,7 +47,7 @@ abstract contract LayerZeroClientReceiverInternal is
             revert LayerZeroClientBase__InvalidTrustedRemote();
 
         if (_isBlocking(sourceChainId, path, nonce, data)) {
-            _onLayerZeroMessageReceived(sourceChainId, path, nonce, data);
+            _handleLayerZeroMessage(sourceChainId, path, nonce, data);
 
             // TODO: success event
         } else {
@@ -86,7 +86,7 @@ abstract contract LayerZeroClientReceiverInternal is
             revert LayerZeroClientReceiverNonBlocking__NotSelf();
         }
 
-        _onLayerZeroMessageReceived(sourceChainId, path, nonce, data);
+        _handleLayerZeroMessage(sourceChainId, path, nonce, data);
 
         // TODO: success event
     }
@@ -117,7 +117,7 @@ abstract contract LayerZeroClientReceiverInternal is
 
         delete l.failedMessages[key];
 
-        _onLayerZeroMessageReceived(sourceChainId, path, nonce, data);
+        _handleLayerZeroMessage(sourceChainId, path, nonce, data);
 
         // TODO: success event
     }
@@ -129,7 +129,7 @@ abstract contract LayerZeroClientReceiverInternal is
      * @param nonce ordered message nonce
      * @param data cross-chain message payload
      */
-    function _onLayerZeroMessageReceived(
+    function _handleLayerZeroMessage(
         uint16 sourceChainId,
         bytes calldata path,
         uint64 nonce,
