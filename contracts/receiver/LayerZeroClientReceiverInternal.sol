@@ -2,7 +2,9 @@
 
 pragma solidity ^0.8.0;
 
+import { ExcessivelySafeCall } from '../libraries/ExcessivelySafeCall.sol';
 import { LayerZeroClientBaseInternal } from '../base/LayerZeroClientBaseInternal.sol';
+import { ILayerZeroClientReceiver } from './ILayerZeroClientReceiver.sol';
 import { ILayerZeroClientReceiverInternal } from './ILayerZeroClientReceiverInternal.sol';
 import { LayerZeroClientReceiverStorage } from './LayerZeroClientReceiverStorage.sol';
 
@@ -14,6 +16,8 @@ abstract contract LayerZeroClientReceiverInternal is
     ILayerZeroClientReceiverInternal,
     LayerZeroClientBaseInternal
 {
+    using ExcessivelySafeCall for address;
+
     /**
      * @notice query whether given cross-chain message data should be treated as blocking
      * @dev LayerZero messaging is blocking by default, but non-blocking behavior can be introduced by overriding this function
@@ -51,9 +55,19 @@ abstract contract LayerZeroClientReceiverInternal is
 
             // TODO: success event
         } else {
-            // TODO: encode call to tryMessage
-
-            bool success;
+            (bool success, bytes memory reason) = address(this)
+                .excessivelySafeCall(
+                    gasleft(),
+                    150,
+                    0,
+                    abi.encodeWithSelector(
+                        ILayerZeroClientReceiver.tryMessage.selector,
+                        sourceChainId,
+                        path,
+                        nonce,
+                        data
+                    )
+                );
 
             if (!success) {
                 bytes32 key = keccak256(
@@ -64,7 +78,7 @@ abstract contract LayerZeroClientReceiverInternal is
                     key
                 ] = block.timestamp;
 
-                // TODO: failure event
+                // TODO: failure event (including revert reason)
             }
         }
     }
