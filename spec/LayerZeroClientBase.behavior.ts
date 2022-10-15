@@ -15,16 +15,6 @@ export function describeBehaviorOfLayerZeroClientBase(
   const describe = describeFilter(skips);
 
   describe('::LayerZeroClientBase', function () {
-    let instance: ILayerZeroClientBase;
-
-    beforeEach(async function () {
-      instance = await deploy();
-    });
-
-    describe('#todo()', function () {
-      it('todo', async () => {
-        console.log('okay');
-      });
-    });
+    // no behavior
   });
 }
