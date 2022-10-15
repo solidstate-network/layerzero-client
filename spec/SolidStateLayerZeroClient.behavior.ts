@@ -1,4 +1,8 @@
 import {
+  describeBehaviorOfSafeOwnable,
+  SafeOwnableBehaviorArgs,
+} from '@solidstate/spec';
+import {
   describeBehaviorOfLayerZeroClientBase,
   LayerZeroClientBaseBehaviorArgs,
 } from './LayerZeroClientBase.behavior';
@@ -15,7 +19,8 @@ import { ISolidStateLayerZeroClient } from '@solidstate/typechain-types';
 import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
 export interface SolidStateLayerZeroClientBehaviorArgs
-  extends LayerZeroClientBaseBehaviorArgs,
+  extends SafeOwnableBehaviorArgs,
+    LayerZeroClientBaseBehaviorArgs,
     LayerZeroClientConfigBehaviorArgs,
     LayerZeroClientReceiverBehaviorArgs {}
 
@@ -27,6 +32,8 @@ export function describeBehaviorOfSolidStateLayerZeroClient(
   const describe = describeFilter(skips);
 
   describe('::SolidStateLayerZeroClient', function () {
+    describeBehaviorOfSafeOwnable(deploy, args, skips);
+
     describeBehaviorOfLayerZeroClientBase(deploy, args, skips);
 
     describeBehaviorOfLayerZeroClientConfig(deploy, args, skips);

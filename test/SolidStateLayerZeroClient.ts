@@ -1,3 +1,4 @@
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { describeBehaviorOfSolidStateLayerZeroClient } from '../spec/SolidStateLayerZeroClient.behavior';
 import {
   SolidStateLayerZeroClientMock,
@@ -6,14 +7,23 @@ import {
 import { ethers } from 'hardhat';
 
 describe('SolidStateLayerZeroClient', function () {
+  let owner: SignerWithAddress;
+  let nonOwner: SignerWithAddress;
+  let nomineeOwner: SignerWithAddress;
+
   let instance: SolidStateLayerZeroClientMock;
 
-  beforeEach(async function () {
-    const [deployer] = await ethers.getSigners();
-    instance = await new SolidStateLayerZeroClientMock__factory(
-      deployer,
-    ).deploy();
+  before(async () => {
+    [owner, nonOwner, nomineeOwner] = await ethers.getSigners();
   });
 
-  describeBehaviorOfSolidStateLayerZeroClient(async () => instance, {});
+  beforeEach(async () => {
+    instance = await new SolidStateLayerZeroClientMock__factory(owner).deploy();
+  });
+
+  describeBehaviorOfSolidStateLayerZeroClient(async () => instance, {
+    getOwner: async () => owner,
+    getNonOwner: async () => nonOwner,
+    getNomineeOwner: async () => nomineeOwner,
+  });
 });
