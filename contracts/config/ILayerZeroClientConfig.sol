@@ -33,16 +33,16 @@ interface ILayerZeroClientConfig is ILayerZeroClientConfigInternal {
     ) external;
 
     /**
-     * @notice set the LayerZero messaging library version to use for outgoing messages
-     * @param version new messaging library version
-     */
-    function setSendVersion(uint16 version) external;
-
-    /**
      * @notice set the LayerZero messaging library version to use for incoming messages
      * @param version new messaging library version
      */
     function setReceiveVersion(uint16 version) external;
+
+    /**
+     * @notice set the LayerZero messaging library version to use for outgoing messages
+     * @param version new messaging library version
+     */
+    function setSendVersion(uint16 version) external;
 
     /**
      * @notice clear pending payload stored in the LayerZero endpoint to force resume message flow

@@ -35,15 +35,15 @@ contract LayerZeroClientConfig is
     /**
      * @inheritdoc ILayerZeroClientConfig
      */
-    function setSendVersion(uint16 version) external {
-        _setSendVersion(version);
+    function setReceiveVersion(uint16 version) external {
+        _setReceiveVersion(version);
     }
 
     /**
      * @inheritdoc ILayerZeroClientConfig
      */
-    function setReceiveVersion(uint16 version) external {
-        _setReceiveVersion(version);
+    function setSendVersion(uint16 version) external {
+        _setSendVersion(version);
     }
 
     /**

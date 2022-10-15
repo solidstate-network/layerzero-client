@@ -42,12 +42,12 @@ contract LayerZeroClientConfigInternal is
         );
     }
 
-    function _setSendVersion(uint16 version) internal onlyOwner {
-        ILayerZeroEndpoint(_getLayerZeroEndpoint()).setSendVersion(version);
-    }
-
     function _setReceiveVersion(uint16 version) internal onlyOwner {
         ILayerZeroEndpoint(_getLayerZeroEndpoint()).setReceiveVersion(version);
+    }
+
+    function _setSendVersion(uint16 version) internal onlyOwner {
+        ILayerZeroEndpoint(_getLayerZeroEndpoint()).setSendVersion(version);
     }
 
     function _forceResumeReceive(uint16 srcChainId, bytes calldata srcAddress)
