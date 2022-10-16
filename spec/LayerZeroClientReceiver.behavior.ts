@@ -21,9 +21,60 @@ export function describeBehaviorOfLayerZeroClientReceiver(
       instance = await deploy();
     });
 
-    describe('#todo()', function () {
-      it('todo', async () => {
-        console.log('okay');
+    describe('#isBlocking(uint16,bytes,uint64,bytes)', function () {
+      it('returns true by default', async () => {
+        expect(
+          await instance.callStatic['isBlocking(uint16,bytes,uint64,bytes)'](
+            0,
+            '0x',
+            0,
+            '0x',
+          ),
+        ).to.be.true;
+      });
+    });
+
+    describe('#lzReceive(uint16,bytes,uint64,bytes)', function () {
+      describe('reverts if', () => {
+        it('sender is not LayerZero endpoint', async () => {
+          await expect(
+            instance['lzReceive(uint16,bytes,uint64,bytes)'](0, '0x', 0, '0x'),
+          ).to.be.revertedWithCustomError(
+            instance,
+            'LayerZeroClientBase__NotLayerZeroEndpoint',
+          );
+        });
+      });
+    });
+
+    describe('#tryMessage(uint16,bytes,uint64,bytes)', function () {
+      describe('reverts if', () => {
+        it('sender is not self', async () => {
+          await expect(
+            instance['tryMessage(uint16,bytes,uint64,bytes)'](0, '0x', 0, '0x'),
+          ).to.be.revertedWithCustomError(
+            instance,
+            'LayerZeroClientReceiverNonBlocking__NotSelf',
+          );
+        });
+      });
+    });
+
+    describe('#retryMessage(uint16,bytes,uint64,bytes)', function () {
+      describe('reverts if', () => {
+        it('payload does not match pending', async () => {
+          await expect(
+            instance['retryMessage(uint16,bytes,uint64,bytes)'](
+              0,
+              '0x',
+              0,
+              '0x',
+            ),
+          ).to.be.revertedWithCustomError(
+            instance,
+            'LayerZeroClientReceiverNonBlocking__InvalidPayload',
+          );
+        });
       });
     });
   });
