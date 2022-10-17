@@ -113,9 +113,10 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
         internal
         virtual
     {
-        _setTrustedRemoteAddress(remoteChainId, _parseTrustedRemote(path));
+        LayerZeroClientBaseStorage.layout().trustedRemotes[
+                remoteChainId
+            ] = _parseTrustedRemote(path);
 
-        // TODO: SetTrustedRemoteAddress is also emitted via internal call
         emit SetTrustedRemote(remoteChainId, path);
     }
 
