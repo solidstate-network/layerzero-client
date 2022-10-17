@@ -53,7 +53,7 @@ abstract contract LayerZeroClientReceiverInternal is
         if (_isBlocking(sourceChainId, path, nonce, data)) {
             _handleLayerZeroMessage(sourceChainId, path, nonce, data);
 
-            // TODO: success event
+            emit MessageSucceeded(sourceChainId, path, nonce, data);
         } else {
             (bool success, bytes memory reason) = address(this)
                 .excessivelySafeCall(
@@ -102,7 +102,7 @@ abstract contract LayerZeroClientReceiverInternal is
 
         _handleLayerZeroMessage(sourceChainId, path, nonce, data);
 
-        // TODO: success event
+        emit MessageSucceeded(sourceChainId, path, nonce, data);
     }
 
     /**
@@ -133,7 +133,7 @@ abstract contract LayerZeroClientReceiverInternal is
 
         _handleLayerZeroMessage(sourceChainId, path, nonce, data);
 
-        // TODO: success event
+        emit MessageSucceeded(sourceChainId, path, nonce, data);
     }
 
     /**

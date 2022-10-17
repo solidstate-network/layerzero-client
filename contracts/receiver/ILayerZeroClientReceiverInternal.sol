@@ -8,6 +8,13 @@ import { ILayerZeroClientBaseInternal } from '../base/ILayerZeroClientBaseIntern
  * @title Partial LayerZero Client Receiver interface needed by internal functions
  */
 interface ILayerZeroClientReceiverInternal is ILayerZeroClientBaseInternal {
+    event MessageSucceeded(
+        uint16 sourceChainId,
+        bytes path,
+        uint64 nonce,
+        bytes data
+    );
+
     event MessageFailed(
         uint16 sourceChainId,
         bytes path,
