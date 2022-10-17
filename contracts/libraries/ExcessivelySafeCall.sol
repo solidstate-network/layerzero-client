@@ -15,10 +15,8 @@ library ExcessivelySafeCall {
         uint256 value,
         uint16 maxCopy,
         bytes memory data
-    ) internal returns (bool, bytes memory) {
-        uint256 toCopy;
-        bool success;
-        bytes memory returnData = new bytes(maxCopy);
+    ) internal returns (bool success, bytes memory returnData) {
+        returnData = new bytes(maxCopy);
 
         assembly {
             // execute external call via assembly to avoid automatic copying of return data
@@ -33,7 +31,7 @@ library ExcessivelySafeCall {
             )
 
             // determine whether to limit amount of data to copy
-            toCopy := returndatasize()
+            let toCopy := returndatasize()
 
             if gt(toCopy, maxCopy) {
                 toCopy := maxCopy
