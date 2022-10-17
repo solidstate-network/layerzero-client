@@ -78,7 +78,7 @@ abstract contract LayerZeroClientReceiverInternal is
                     key
                 ] = block.timestamp;
 
-                // TODO: failure event (including revert reason)
+                emit MessageFailed(sourceChainId, path, nonce, data, reason);
             }
         }
     }
