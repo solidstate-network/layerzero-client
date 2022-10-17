@@ -133,7 +133,10 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
             remoteChainId
         ] = remoteAddress;
 
-        emit SetTrustedRemoteAddress(remoteChainId, remoteAddress);
+        emit SetTrustedRemote(
+            remoteChainId,
+            _formatTrustedRemote(remoteAddress)
+        );
     }
 
     /**
