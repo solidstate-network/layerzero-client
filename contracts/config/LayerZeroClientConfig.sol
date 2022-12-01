@@ -49,9 +49,10 @@ contract LayerZeroClientConfig is
     /**
      * @inheritdoc ILayerZeroClientConfig
      */
-    function forceResumeReceive(uint16 srcChainId, bytes calldata srcAddress)
-        external
-    {
+    function forceResumeReceive(
+        uint16 srcChainId,
+        bytes calldata srcAddress
+    ) external {
         _forceResumeReceive(srcChainId, srcAddress);
     }
 }

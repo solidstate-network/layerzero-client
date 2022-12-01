@@ -50,10 +50,10 @@ contract LayerZeroClientConfigInternal is
         ILayerZeroEndpoint(_getLayerZeroEndpoint()).setSendVersion(version);
     }
 
-    function _forceResumeReceive(uint16 srcChainId, bytes calldata srcAddress)
-        internal
-        onlyOwner
-    {
+    function _forceResumeReceive(
+        uint16 srcChainId,
+        bytes calldata srcAddress
+    ) internal onlyOwner {
         ILayerZeroEndpoint(_getLayerZeroEndpoint()).forceResumeReceive(
             srcChainId,
             srcAddress

@@ -35,12 +35,9 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
      * @param remoteChainId LayerZero remote chain id
      * @return path encoded LayerZero trusted remote path
      */
-    function _getTrustedRemote(uint16 remoteChainId)
-        internal
-        view
-        virtual
-        returns (bytes memory path)
-    {
+    function _getTrustedRemote(
+        uint16 remoteChainId
+    ) internal view virtual returns (bytes memory path) {
         path = _formatTrustedRemote(_getTrustedRemoteAddress(remoteChainId));
     }
 
@@ -49,12 +46,9 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
      * @param remoteChainId LayerZero remote chain id
      * @return remoteAddress trusted remote address encoded as bytes
      */
-    function _getTrustedRemoteAddress(uint16 remoteChainId)
-        internal
-        view
-        virtual
-        returns (bytes memory remoteAddress)
-    {
+    function _getTrustedRemoteAddress(
+        uint16 remoteChainId
+    ) internal view virtual returns (bytes memory remoteAddress) {
         remoteAddress = LayerZeroClientBaseStorage.layout().trustedRemotes[
             remoteChainId
         ];
@@ -69,12 +63,10 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
      * @param path encoded LayerZero remote path
      * @return whether LayerZero remote path is trusted
      */
-    function _isTrustedRemote(uint16 remoteChainId, bytes calldata path)
-        internal
-        view
-        virtual
-        returns (bool)
-    {
+    function _isTrustedRemote(
+        uint16 remoteChainId,
+        bytes calldata path
+    ) internal view virtual returns (bool) {
         return
             _isTrustedRemoteAddress(remoteChainId, _parseTrustedRemote(path));
     }
@@ -109,13 +101,13 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
      * @param remoteChainId LayerZero remote chain id
      * @param path encoded LayerZero trusted remote path
      */
-    function _setTrustedRemote(uint16 remoteChainId, bytes calldata path)
-        internal
-        virtual
-    {
+    function _setTrustedRemote(
+        uint16 remoteChainId,
+        bytes calldata path
+    ) internal virtual {
         LayerZeroClientBaseStorage.layout().trustedRemotes[
-                remoteChainId
-            ] = _parseTrustedRemote(path);
+            remoteChainId
+        ] = _parseTrustedRemote(path);
 
         emit SetTrustedRemote(remoteChainId, path);
     }
@@ -173,11 +165,9 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
      * @param remoteAddress trusted remote address encoded as bytes
      * @return path encoded LayerZero remote path
      */
-    function _formatTrustedRemote(bytes memory remoteAddress)
-        private
-        view
-        returns (bytes memory path)
-    {
+    function _formatTrustedRemote(
+        bytes memory remoteAddress
+    ) private view returns (bytes memory path) {
         if (remoteAddress.length == 0)
             revert LayerZeroClientBase__InvalidTrustedRemote();
 
@@ -189,11 +179,9 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
      * @param path encoded LayerZero remote path
      * @return remoteAddress trusted remote address encoded as bytes
      */
-    function _parseTrustedRemote(bytes calldata path)
-        private
-        view
-        returns (bytes memory remoteAddress)
-    {
+    function _parseTrustedRemote(
+        bytes calldata path
+    ) private view returns (bytes memory remoteAddress) {
         uint256 length = path.length;
         if (length < 20) revert LayerZeroClientBase__InvalidTrustedRemote();
 

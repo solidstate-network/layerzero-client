@@ -20,11 +20,9 @@ abstract contract SolidStateLayerZeroClient is
     LayerZeroClientConfig,
     LayerZeroClientReceiver
 {
-    function _transferOwnership(address account)
-        internal
-        virtual
-        override(OwnableInternal, SafeOwnable)
-    {
+    function _transferOwnership(
+        address account
+    ) internal virtual override(OwnableInternal, SafeOwnable) {
         super._transferOwnership(account);
     }
 }
