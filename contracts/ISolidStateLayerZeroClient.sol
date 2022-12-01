@@ -8,7 +8,10 @@ import { ILayerZeroClientBase } from './base/ILayerZeroClientBase.sol';
 import { ILayerZeroClientConfig } from './config/ILayerZeroClientConfig.sol';
 import { ILayerZeroClientReceiver } from './receiver/ILayerZeroClientReceiver.sol';
 
+import { ISolidStateLayerZeroClientInternal } from './ISolidStateLayerZeroClientInternal.sol';
+
 interface ISolidStateLayerZeroClient is
+    ISolidStateLayerZeroClientInternal,
     ISafeOwnable,
     ILayerZeroClientBase,
     ILayerZeroClientConfig,
