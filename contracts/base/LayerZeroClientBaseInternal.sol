@@ -158,6 +158,15 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
             zroPaymentAddress,
             adapterParams
         );
+
+        emit MessageSent(
+            destinationChainId,
+            payload,
+            refundAddress,
+            zroPaymentAddress,
+            adapterParams,
+            nativeFee
+        );
     }
 
     /**
