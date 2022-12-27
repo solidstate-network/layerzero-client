@@ -1,6 +1,6 @@
 {
   "name": "@solidstate/layerzero-client",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Nick Barry",
   "license": "MIT",
   "description": "SolidState integration with the LayerZero cross-chain messaging protocol",
