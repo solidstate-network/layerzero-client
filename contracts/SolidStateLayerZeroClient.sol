@@ -6,6 +6,7 @@ import { SafeOwnable } from '@solidstate/contracts/access/ownable/SafeOwnable.so
 import { OwnableInternal } from '@solidstate/contracts/access/ownable/OwnableInternal.sol';
 
 import { ISolidStateLayerZeroClient } from './ISolidStateLayerZeroClient.sol';
+import { SolidStateLayerZeroClientInternal } from './SolidStateLayerZeroClientInternal.sol';
 import { LayerZeroClientBase } from './base/LayerZeroClientBase.sol';
 import { LayerZeroClientConfig } from './config/LayerZeroClientConfig.sol';
 import { LayerZeroClientReceiver } from './receiver/LayerZeroClientReceiver.sol';
@@ -15,14 +16,23 @@ import { LayerZeroClientReceiver } from './receiver/LayerZeroClientReceiver.sol'
  */
 abstract contract SolidStateLayerZeroClient is
     ISolidStateLayerZeroClient,
-    SafeOwnable,
+    SolidStateLayerZeroClientInternal,
     LayerZeroClientBase,
     LayerZeroClientConfig,
-    LayerZeroClientReceiver
+    LayerZeroClientReceiver,
+    SafeOwnable
 {
     function _transferOwnership(
         address account
-    ) internal virtual override(OwnableInternal, SafeOwnable) {
+    )
+        internal
+        virtual
+        override(
+            SolidStateLayerZeroClientInternal,
+            SafeOwnable,
+            OwnableInternal
+        )
+    {
         super._transferOwnership(account);
     }
 }
