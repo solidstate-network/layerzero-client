@@ -2,7 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import { ExcessivelySafeCall } from '../libraries/ExcessivelySafeCall.sol';
+import { AddressUtils } from '@solidstate/contracts/utils/AddressUtils.sol';
+
 import { LayerZeroClientBaseInternal } from '../base/LayerZeroClientBaseInternal.sol';
 import { ILayerZeroClientReceiver } from './ILayerZeroClientReceiver.sol';
 import { ILayerZeroClientReceiverInternal } from './ILayerZeroClientReceiverInternal.sol';
@@ -16,7 +17,7 @@ abstract contract LayerZeroClientReceiverInternal is
     ILayerZeroClientReceiverInternal,
     LayerZeroClientBaseInternal
 {
-    using ExcessivelySafeCall for address;
+    using AddressUtils for address;
 
     /**
      * @notice query whether given cross-chain message data should be treated as blocking
