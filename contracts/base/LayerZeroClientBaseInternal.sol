@@ -11,12 +11,6 @@ import { LayerZeroClientBaseStorage } from './LayerZeroClientBaseStorage.sol';
  * @dev derived from https://github.com/LayerZero-Labs/solidity-examples/ (MIT License)
  */
 abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
-    modifier onlyLayerZeroEndpoint() {
-        if (msg.sender != _getLayerZeroEndpoint())
-            revert LayerZeroClientBase__NotLayerZeroEndpoint();
-        _;
-    }
-
     /**
      * @notice query the LayerZero endpoint address
      * @return layerZeroEndpoint LayerZero endpoint address

@@ -23,6 +23,7 @@ interface ILayerZeroClientReceiverInternal is ILayerZeroClientBaseInternal {
         bytes reason
     );
 
+    error LayerZeroClientReceiver__NotLayerZeroEndpoint();
     error LayerZeroClientReceiverNonBlocking__NotSelf();
     error LayerZeroClientReceiverNonBlocking__InvalidPayload();
 }
