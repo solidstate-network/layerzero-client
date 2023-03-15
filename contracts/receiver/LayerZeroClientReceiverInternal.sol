@@ -98,7 +98,7 @@ abstract contract LayerZeroClientReceiverInternal is
         bytes calldata data
     ) internal virtual {
         if (msg.sender != address(this)) {
-            revert LayerZeroClientReceiverNonBlocking__NotSelf();
+            revert LayerZeroClientReceiver__NotSelf();
         }
 
         _handleLayerZeroMessage(sourceChainId, path, nonce, data);
@@ -127,7 +127,7 @@ abstract contract LayerZeroClientReceiverInternal is
         );
 
         if (l.failedMessages[key] == 0) {
-            revert LayerZeroClientReceiverNonBlocking__InvalidPayload();
+            revert LayerZeroClientReceiver__InvalidPayload();
         }
 
         delete l.failedMessages[key];
