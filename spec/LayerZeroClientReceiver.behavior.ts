@@ -54,7 +54,7 @@ export function describeBehaviorOfLayerZeroClientReceiver(
             instance['tryMessage(uint16,bytes,uint64,bytes)'](0, '0x', 0, '0x'),
           ).to.be.revertedWithCustomError(
             instance,
-            'LayerZeroClientReceiverNonBlocking__NotSelf',
+            'LayerZeroClientReceiver__NotSelf',
           );
         });
       });
@@ -72,7 +72,7 @@ export function describeBehaviorOfLayerZeroClientReceiver(
             ),
           ).to.be.revertedWithCustomError(
             instance,
-            'LayerZeroClientReceiverNonBlocking__InvalidPayload',
+            'LayerZeroClientReceiver__InvalidPayload',
           );
         });
       });
