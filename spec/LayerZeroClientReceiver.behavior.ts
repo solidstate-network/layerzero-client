@@ -41,7 +41,7 @@ export function describeBehaviorOfLayerZeroClientReceiver(
             instance['lzReceive(uint16,bytes,uint64,bytes)'](0, '0x', 0, '0x'),
           ).to.be.revertedWithCustomError(
             instance,
-            'LayerZeroClientReceiver__NotLayerZeroEndpoint',
+            'LayerZeroClientBase__NotLayerZeroEndpoint',
           );
         });
       });

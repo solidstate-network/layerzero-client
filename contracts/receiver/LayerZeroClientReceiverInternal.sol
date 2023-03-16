@@ -19,12 +19,6 @@ abstract contract LayerZeroClientReceiverInternal is
 {
     using AddressUtils for address;
 
-    modifier onlyLayerZeroEndpoint() {
-        if (msg.sender != _getLayerZeroEndpoint())
-            revert LayerZeroClientReceiver__NotLayerZeroEndpoint();
-        _;
-    }
-
     /**
      * @notice query whether given cross-chain message data should be treated as blocking
      * @dev LayerZero messaging is blocking by default, but non-blocking behavior can be introduced by overriding this function
