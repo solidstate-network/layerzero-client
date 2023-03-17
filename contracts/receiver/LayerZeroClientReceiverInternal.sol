@@ -139,6 +139,7 @@ abstract contract LayerZeroClientReceiverInternal is
 
     /**
      * @notice handle received LayerZero cross-chain message
+     * @dev must be overridden with domain-specific logic
      * @param sourceChainId LayerZero chain id of message source
      * @param path encoded LayerZero trusted remote path
      * @param nonce ordered message nonce
