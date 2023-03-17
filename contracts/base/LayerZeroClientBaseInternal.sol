@@ -132,44 +132,6 @@ abstract contract LayerZeroClientBaseInternal is ILayerZeroClientBaseInternal {
     }
 
     /**
-     * @notice send cross-chain messave via LayerZero endpoint
-     * @param destinationChainId LayerZero destination chain id
-     * @param payload data payload to send
-     * @param refundAddress recipient address of gas fee refund
-     * @param zroPaymentAddress address of ZRO fee payer
-     * @param adapterParams relayer adapter parameters
-     * @param nativeFee amount of local-chain native tokens to send as gas fee
-     */
-    function _lzSend(
-        uint16 destinationChainId,
-        bytes memory payload,
-        address payable refundAddress,
-        address zroPaymentAddress,
-        bytes memory adapterParams,
-        uint256 nativeFee
-    ) internal virtual {
-        bytes memory trustedRemote = _getTrustedRemote(destinationChainId);
-
-        ILayerZeroEndpoint(_getLayerZeroEndpoint()).send{ value: nativeFee }(
-            destinationChainId,
-            trustedRemote,
-            payload,
-            refundAddress,
-            zroPaymentAddress,
-            adapterParams
-        );
-
-        emit MessageSent(
-            destinationChainId,
-            payload,
-            refundAddress,
-            zroPaymentAddress,
-            adapterParams,
-            nativeFee
-        );
-    }
-
-    /**
      * @notice format LayerZero trusted remote by appending local address to remote address
      * @param remoteAddress trusted remote address encoded as bytes
      * @return path encoded LayerZero remote path

@@ -10,12 +10,4 @@ interface ILayerZeroClientBaseInternal {
     error LayerZeroClientBase__NotLayerZeroEndpoint();
 
     event SetTrustedRemote(uint16 remoteChainId, bytes path);
-    event MessageSent(
-        uint16 destinationChainId,
-        bytes payload,
-        address refundAddress,
-        address zroPaymentAddress,
-        bytes adapterParams,
-        uint256 nativeFee
-    );
 }
